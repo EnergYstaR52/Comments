@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use app\models\Comment;
+use app\models\Topic;
 use app\service\CommentService;
 use Yii;
 use yii\web\Controller;
@@ -16,13 +17,14 @@ class TopicController extends Controller
 
     public function actionView(string $id)
     {
+        $topic = Topic::findOne(['id' => $id]);
         $service = $this->getCommentService();
         $comments = $service->getTopicComments($id);
 
         return $this->render('topic_comments', [
             'comments' => $comments,
             'service'  => $service,
-            'topicId'  => $id,
+            'topic'  => $topic,
         ]);
     }
 

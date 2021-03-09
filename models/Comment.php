@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "comment".
@@ -14,20 +16,14 @@ use Yii;
  * @property string|null $created_at
  * @property Author $author
  */
-class Comment extends \yii\db\ActiveRecord
+class Comment extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+    public static function tableName() : string
     {
         return 'comment';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function rules() : array
     {
         return [
             [['parent_id', 'topic_id'], 'integer'],
@@ -36,10 +32,7 @@ class Comment extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+    public function attributeLabels() : array
     {
         return [
             'id'         => 'ID',
@@ -50,7 +43,7 @@ class Comment extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getAuthor()
+    public function getAuthor() : ActiveQuery
     {
         return $this->hasOne(Author::class, ['id' => 'author_id']);
     }
